@@ -61,6 +61,9 @@
             this.artistLinkLabel = new System.Windows.Forms.LinkLabel();
             this.titleLinkLabel = new System.Windows.Forms.LinkLabel();
             this.smallAlbumPicture = new System.Windows.Forms.PictureBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.RecordPath = new System.Windows.Forms.Label();
+            this.RecordBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bigAlbumPicture)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.trackInfoBox.SuspendLayout();
@@ -77,6 +80,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.RecordBtn);
+            this.groupBox1.Controls.Add(this.RecordPath);
+            this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Controls.Add(this.repeatShuffleLabel);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.versionLabel);
@@ -167,7 +173,7 @@
             // skipBtn
             // 
             this.skipBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.skipBtn.Location = new System.Drawing.Point(245, 252);
+            this.skipBtn.Location = new System.Drawing.Point(245, 205);
             this.skipBtn.Name = "skipBtn";
             this.skipBtn.Size = new System.Drawing.Size(67, 23);
             this.skipBtn.TabIndex = 24;
@@ -178,7 +184,7 @@
             // prevBtn
             // 
             this.prevBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.prevBtn.Location = new System.Drawing.Point(164, 252);
+            this.prevBtn.Location = new System.Drawing.Point(164, 205);
             this.prevBtn.Name = "prevBtn";
             this.prevBtn.Size = new System.Drawing.Size(75, 23);
             this.prevBtn.TabIndex = 23;
@@ -189,7 +195,7 @@
             // pauseBtn
             // 
             this.pauseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pauseBtn.Location = new System.Drawing.Point(83, 252);
+            this.pauseBtn.Location = new System.Drawing.Point(83, 205);
             this.pauseBtn.Name = "pauseBtn";
             this.pauseBtn.Size = new System.Drawing.Size(75, 23);
             this.pauseBtn.TabIndex = 22;
@@ -200,7 +206,7 @@
             // playBtn
             // 
             this.playBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.playBtn.Location = new System.Drawing.Point(6, 252);
+            this.playBtn.Location = new System.Drawing.Point(6, 205);
             this.playBtn.Name = "playBtn";
             this.playBtn.Size = new System.Drawing.Size(71, 23);
             this.playBtn.TabIndex = 21;
@@ -212,7 +218,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 206);
+            this.label1.Location = new System.Drawing.Point(6, 159);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(110, 17);
             this.label1.TabIndex = 20;
@@ -221,7 +227,7 @@
             // contextTextBox
             // 
             this.contextTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.contextTextBox.Location = new System.Drawing.Point(9, 226);
+            this.contextTextBox.Location = new System.Drawing.Point(9, 179);
             this.contextTextBox.Name = "contextTextBox";
             this.contextTextBox.Size = new System.Drawing.Size(232, 20);
             this.contextTextBox.TabIndex = 19;
@@ -229,7 +235,7 @@
             // playUrlBtn
             // 
             this.playUrlBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.playUrlBtn.Location = new System.Drawing.Point(247, 165);
+            this.playUrlBtn.Location = new System.Drawing.Point(247, 118);
             this.playUrlBtn.Name = "playUrlBtn";
             this.playUrlBtn.Size = new System.Drawing.Size(65, 81);
             this.playUrlBtn.TabIndex = 18;
@@ -240,7 +246,7 @@
             // playTextBox
             // 
             this.playTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.playTextBox.Location = new System.Drawing.Point(6, 185);
+            this.playTextBox.Location = new System.Drawing.Point(6, 138);
             this.playTextBox.Name = "playTextBox";
             this.playTextBox.Size = new System.Drawing.Size(232, 20);
             this.playTextBox.TabIndex = 17;
@@ -250,7 +256,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(6, 165);
+            this.label2.Location = new System.Drawing.Point(6, 118);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(131, 17);
             this.label2.TabIndex = 16;
@@ -428,6 +434,38 @@
             this.smallAlbumPicture.TabIndex = 5;
             this.smallAlbumPicture.TabStop = false;
             // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(8, 257);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(232, 20);
+            this.textBox1.TabIndex = 31;
+            this.textBox1.Text = "N:\\Downloads\\SpotifyRips\\Test";
+            // 
+            // RecordPath
+            // 
+            this.RecordPath.AutoSize = true;
+            this.RecordPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RecordPath.Location = new System.Drawing.Point(6, 237);
+            this.RecordPath.Name = "RecordPath";
+            this.RecordPath.Size = new System.Drawing.Size(92, 17);
+            this.RecordPath.TabIndex = 32;
+            this.RecordPath.Text = "Record-Path:";
+            this.RecordPath.Click += new System.EventHandler(this.label9_Click);
+            // 
+            // RecordBtn
+            // 
+            this.RecordBtn.Cursor = System.Windows.Forms.Cursors.Default;
+            this.RecordBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RecordBtn.Location = new System.Drawing.Point(246, 254);
+            this.RecordBtn.Name = "RecordBtn";
+            this.RecordBtn.Size = new System.Drawing.Size(67, 23);
+            this.RecordBtn.TabIndex = 33;
+            this.RecordBtn.Text = "Record";
+            this.RecordBtn.UseVisualStyleBackColor = true;
+            this.RecordBtn.Click += new System.EventHandler(this.button1_Click);
+            // 
             // LocalControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -483,5 +521,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label repeatShuffleLabel;
         private System.Windows.Forms.Label advertLabel;
+        private System.Windows.Forms.Label RecordPath;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button RecordBtn;
     }
 }
