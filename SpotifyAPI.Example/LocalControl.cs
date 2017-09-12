@@ -4,6 +4,8 @@ using SpotifyAPI.Local.Models;
 using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SpotifyAPI.Example
@@ -12,6 +14,8 @@ namespace SpotifyAPI.Example
     {
         private readonly SpotifyLocalAPI _spotify;
         private Track _currentTrack;
+        private bool _isRecording;
+        private Process _recordingProcess;
 
         public LocalControl()
         {
@@ -42,7 +46,7 @@ namespace SpotifyAPI.Example
                 return;
             }
 
-            bool successful = _spotify.Connect();
+            var successful = _spotify.Connect();
             if (successful)
             {
                 connectBtn.Text = @"Connection to Spotify successful";
@@ -52,7 +56,7 @@ namespace SpotifyAPI.Example
             }
             else
             {
-                DialogResult res = MessageBox.Show(@"Couldn't connect to the spotify client. Retry?", @"Spotify", MessageBoxButtons.YesNo);
+                var res = MessageBox.Show(@"Couldn't connect to the spotify client. Retry?", @"Spotify", MessageBoxButtons.YesNo);
                 if (res == DialogResult.Yes)
                     Connect();
             }
@@ -60,7 +64,7 @@ namespace SpotifyAPI.Example
 
         public void UpdateInfos()
         {
-            StatusResponse status = _spotify.GetStatus();
+            var status = _spotify.GetStatus();
             if (status == null)
                 return;
 
@@ -93,7 +97,7 @@ namespace SpotifyAPI.Example
             albumLinkLabel.Text = track.AlbumResource.Name;
             albumLinkLabel.Tag = track.AlbumResource.Uri;
 
-            SpotifyUri uri = track.TrackResource.ParseUri();
+            var uri = track.TrackResource.ParseUri();
 
             trackInfoBox.Text = $@"Track Info - {uri.Id}";
 
@@ -135,7 +139,13 @@ namespace SpotifyAPI.Example
                 Invoke(new Action(() => _spotify_OnTrackChange(sender, e)));
                 return;
             }
+            StopRecording();
+
             UpdateTrack(e.NewTrack);
+            if (_isRecording)
+            {
+                RecordCurrentTrack();
+            }
         }
 
         private void _spotify_OnPlayStateChange(object sender, PlayStateEventArgs e)
@@ -180,21 +190,56 @@ namespace SpotifyAPI.Example
 
         private static String FormatTime(double sec)
         {
-            TimeSpan span = TimeSpan.FromSeconds(sec);
+            var span = TimeSpan.FromSeconds(sec);
             String secs = span.Seconds.ToString(), mins = span.Minutes.ToString();
             if (secs.Length < 2)
                 secs = "0" + secs;
             return mins + ":" + secs;
         }
-
-        private void label9_Click(object sender, EventArgs e)
+      
+        private void record_Click(object sender, EventArgs e)
         {
-
+            _isRecording = !_isRecording;
+            if (_isRecording)
+            {
+                RecordBtn.Text = "Stop Rec";
+            }
+            else
+            {
+                RecordBtn.Text = "Record";
+            }            
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void RecordCurrentTrack()
         {
+            var fileName = "\\" + _currentTrack.ArtistResource.Name + " - " + _currentTrack.TrackResource.Name + ".mp3";
+            //settings.IsEnabled = false;
+            //rewindTrack();
+            //await spotify.Pause().ConfigureAwait(false);
+            var dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "lib\\fmedia.exe");
+            var outputFile = RecordPathTextBox.Text + fileName;
+            if (File.Exists(outputFile))
+            {
+                File.Delete(outputFile);
+            }
 
+            const int deviceId = 4; //TODO: move into view
+            var args = $@"--record --out ""{outputFile}"" --dev-loopback={deviceId} --until={_currentTrack.Length}";
+            var p = new ProcessStartInfo(dir, args)
+            {
+                WindowStyle = ProcessWindowStyle.Hidden,
+                CreateNoWindow = false
+            };
+            Task.Factory.StartNew(() =>
+            {
+                _recordingProcess = Process.Start(p);
+            });
         }
+
+        private void StopRecording()
+        {
+            _recordingProcess?.Kill();
+        }
+
     }
 }

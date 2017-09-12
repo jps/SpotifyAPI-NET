@@ -30,6 +30,9 @@
         {
             this.bigAlbumPicture = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.RecordBtn = new System.Windows.Forms.Button();
+            this.RecordPath = new System.Windows.Forms.Label();
+            this.RecordPathTextBox = new System.Windows.Forms.TextBox();
             this.repeatShuffleLabel = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.versionLabel = new System.Windows.Forms.Label();
@@ -61,9 +64,6 @@
             this.artistLinkLabel = new System.Windows.Forms.LinkLabel();
             this.titleLinkLabel = new System.Windows.Forms.LinkLabel();
             this.smallAlbumPicture = new System.Windows.Forms.PictureBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.RecordPath = new System.Windows.Forms.Label();
-            this.RecordBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bigAlbumPicture)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.trackInfoBox.SuspendLayout();
@@ -82,7 +82,7 @@
             // 
             this.groupBox1.Controls.Add(this.RecordBtn);
             this.groupBox1.Controls.Add(this.RecordPath);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.RecordPathTextBox);
             this.groupBox1.Controls.Add(this.repeatShuffleLabel);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.versionLabel);
@@ -109,6 +109,37 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Spotify Info";
+            // 
+            // RecordBtn
+            // 
+            this.RecordBtn.Cursor = System.Windows.Forms.Cursors.Default;
+            this.RecordBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RecordBtn.Location = new System.Drawing.Point(246, 254);
+            this.RecordBtn.Name = "RecordBtn";
+            this.RecordBtn.Size = new System.Drawing.Size(67, 23);
+            this.RecordBtn.TabIndex = 33;
+            this.RecordBtn.Text = "Record";
+            this.RecordBtn.UseVisualStyleBackColor = true;
+            this.RecordBtn.Click += new System.EventHandler(this.record_Click);
+            // 
+            // RecordPath
+            // 
+            this.RecordPath.AutoSize = true;
+            this.RecordPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RecordPath.Location = new System.Drawing.Point(6, 237);
+            this.RecordPath.Name = "RecordPath";
+            this.RecordPath.Size = new System.Drawing.Size(92, 17);
+            this.RecordPath.TabIndex = 32;
+            this.RecordPath.Text = "Record-Path:";
+            // 
+            // RecordPathTextBox
+            // 
+            this.RecordPathTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RecordPathTextBox.Location = new System.Drawing.Point(8, 257);
+            this.RecordPathTextBox.Name = "RecordPathTextBox";
+            this.RecordPathTextBox.Size = new System.Drawing.Size(232, 20);
+            this.RecordPathTextBox.TabIndex = 31;
+            this.RecordPathTextBox.Text = "N:\\Downloads\\SpotifyRips\\Test";
             // 
             // repeatShuffleLabel
             // 
@@ -434,38 +465,6 @@
             this.smallAlbumPicture.TabIndex = 5;
             this.smallAlbumPicture.TabStop = false;
             // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(8, 257);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(232, 20);
-            this.textBox1.TabIndex = 31;
-            this.textBox1.Text = "N:\\Downloads\\SpotifyRips\\Test";
-            // 
-            // RecordPath
-            // 
-            this.RecordPath.AutoSize = true;
-            this.RecordPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RecordPath.Location = new System.Drawing.Point(6, 237);
-            this.RecordPath.Name = "RecordPath";
-            this.RecordPath.Size = new System.Drawing.Size(92, 17);
-            this.RecordPath.TabIndex = 32;
-            this.RecordPath.Text = "Record-Path:";
-            this.RecordPath.Click += new System.EventHandler(this.label9_Click);
-            // 
-            // RecordBtn
-            // 
-            this.RecordBtn.Cursor = System.Windows.Forms.Cursors.Default;
-            this.RecordBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RecordBtn.Location = new System.Drawing.Point(246, 254);
-            this.RecordBtn.Name = "RecordBtn";
-            this.RecordBtn.Size = new System.Drawing.Size(67, 23);
-            this.RecordBtn.TabIndex = 33;
-            this.RecordBtn.Text = "Record";
-            this.RecordBtn.UseVisualStyleBackColor = true;
-            this.RecordBtn.Click += new System.EventHandler(this.button1_Click);
-            // 
             // LocalControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -522,7 +521,7 @@
         private System.Windows.Forms.Label repeatShuffleLabel;
         private System.Windows.Forms.Label advertLabel;
         private System.Windows.Forms.Label RecordPath;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox RecordPathTextBox;
         private System.Windows.Forms.Button RecordBtn;
     }
 }
