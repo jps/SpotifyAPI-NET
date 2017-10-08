@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace SpotifyAPI.Example
 {
@@ -84,6 +85,7 @@ namespace SpotifyAPI.Example
 
             advertLabel.Text = track.IsAd() ? "ADVERT" : "";
             timeProgressBar.Maximum = track.Length;
+            timeProgressBar.Value = 0;
 
             if (track.IsAd())
                 return; //Don't process further, maybe null values
@@ -206,26 +208,33 @@ namespace SpotifyAPI.Example
             }
             else
             {
+                StopRecording();
                 RecordBtn.Text = "Record";
             }            
         }
 
         private void RecordCurrentTrack()
         {
-            var fileName = "\\" + _currentTrack.ArtistResource.Name + " - " + _currentTrack.TrackResource.Name + ".mp3";
+            var fileName =  $"{_currentTrack.ArtistResource.Name} - {_currentTrack.AlbumResource.Name} - {_currentTrack.TrackResource.Name}.mp3";
             //settings.IsEnabled = false;
             //rewindTrack();
             //await spotify.Pause().ConfigureAwait(false);
-            var dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "lib\\fmedia.exe");
-            var outputFile = RecordPathTextBox.Text + fileName;
+            var outputFile = $@"{RecordPathTextBox.Text}\{fileName}";
             if (File.Exists(outputFile))
             {
                 File.Delete(outputFile);
             }
-
+            
             const int deviceId = 4; //TODO: move into view
-            var args = $@"--record --out ""{outputFile}"" --dev-loopback={deviceId} --until={_currentTrack.Length}";
-            var p = new ProcessStartInfo(dir, args)
+
+            var remainingTimeOnCurrentTrack = _currentTrack.Length - timeProgressBar.Value;
+            var until = $"--until={remainingTimeOnCurrentTrack/60}:{remainingTimeOnCurrentTrack%60:D2}";
+
+            var metaData = $"--meta='artist={_currentTrack.ArtistResource.Name};title={_currentTrack.TrackResource.Name};album={_currentTrack.AlbumResource.Name};'";
+            const string quality = "--mpeg-quality=320";
+            var args = $@"--record --out ""{outputFile}"" --dev-loopback={deviceId} {until} {metaData} {quality}";
+            Debug.WriteLine($"About to start recording with: {FMediaPath} {args}");
+            var p = new ProcessStartInfo(FMediaPath, args)
             {
                 WindowStyle = ProcessWindowStyle.Hidden,
                 CreateNoWindow = false
@@ -236,10 +245,32 @@ namespace SpotifyAPI.Example
             });
         }
 
+        private static string FMediaPath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "lib\\fmedia.exe");
+
         private void StopRecording()
         {
-            _recordingProcess?.Kill();
-        }
+            var p = new ProcessStartInfo(FMediaPath, "--globcmd=quit")
+            {
+                WindowStyle = ProcessWindowStyle.Hidden,
+                CreateNoWindow = false
+            };
+            Task.Factory.StartNew(() =>
+            {
+                _recordingProcess = Process.Start(p);
+            });
 
+            //if (_recordingProcess == null || _recordingProcess.HasExited) return;
+
+            //try
+            //{
+                
+
+            //    _recordingProcess.Kill();
+            //}
+            //catch (Exception)
+            //{
+            //    Debug.WriteLine("Failed to kill recording process, most likely terminated");
+            //}
+        }
     }
 }
